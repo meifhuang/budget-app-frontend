@@ -123,7 +123,7 @@ const handleDelete = async (id: string) => {
         </div>
       )}
 
-      <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-8 text-white">
+      <div className="bg-gradient-to-br from-green-400 to-green-500 rounded-xl shadow-lg p-8 text-white">
         <div className="flex items-center gap-3 mb-2">
           <h2 className="text-2xl font-semibold">Total Income</h2>
         </div>

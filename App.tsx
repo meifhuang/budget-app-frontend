@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Login from './src/components/Login';
-import Dashboard from './src/components/Dashboard';
 import Sidebar from './src/components/Sidebar';
 import IncomeTracker from './src/components/IncomeTracker';
+import NetWorthTracker from './src/components/NetWorth';
+import TransactionTracker from './src/components/Transactions';
 
 export interface User {
   id: string;
@@ -17,15 +18,6 @@ export interface Income {
   amount: string;
 }
 
-export interface NetWorth {
-  id: string;
-  date: string;
-  accounts: {
-    name: string;
-    amount: number;
-  }[];
-  totalAmount: number;
-}
 
 export interface Transaction {
   id: string;
@@ -39,7 +31,7 @@ export interface Transaction {
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [currentView, setCurrentView] = useState<'dashboard' | 'income' | 'networth' | 'transactions' | 'analytics'>('dashboard');
+  const [currentView, setCurrentView] = useState<'income' | 'networth' | 'transactions' | 'analytics'>('transactions');
 
   const handleLogin = (loggedInUser: User) => {
     setUser(loggedInUser);
@@ -56,23 +48,8 @@ export default function App() {
       console.error('Logout error:', err);
     }
     setUser(null);
-    setCurrentView('dashboard');
+    setCurrentView('transactions');
   };
-
-  const [incomes] = useState<Income[]>([
-    { id: '1', date: '2025-01-01', source: 'Salary - Tech Corp', amount: 5000 },
-    { id: '2', date: '2024-12-01', source: 'Salary - Tech Corp', amount: 5000 },
-    { id: '3', date: '2024-12-15', source: 'Freelance Project', amount: 1200 },
-  ]);
-
-  const [netWorthData] = useState<NetWorth[]>([
-    { id: '1', date: '2024-12-01', accounts: [{ name: 'Savings', amount: 55000 }], totalAmount: 55000 },
-  ]);
-
-  const [transactions] = useState<Transaction[]>([
-    { id: '1', company: 'Amazon', category: 'Shopping', item: 'Electronics', amount: 299.99, paymentType: 'Credit Card', date: '2025-01-03' },
-    { id: '2', company: 'Whole Foods', category: 'Groceries', item: 'Weekly Shopping', amount: 125.5, paymentType: 'Debit Card', date: '2025-01-02' },
-  ]);
 
   if (!user) return <Login onLogin={handleLogin} />;
 
@@ -86,21 +63,9 @@ export default function App() {
       />
 
       <main className="flex-1 p-8">
-        {currentView === 'dashboard' && (
-          <Dashboard
-            incomes={incomes}
-            netWorthData={netWorthData}
-            transactions={transactions}
-          />
-        )}
         {currentView === 'income' && <IncomeTracker />}
-
-        {currentView === 'networth' && (
-          <div className="text-center text-gray-500 py-12">NetWorth Tracker - Coming Soon</div>
-        )}
-        {currentView === 'transactions' && (
-          <div className="text-center text-gray-500 py-12">Transactions Tracker - Coming Soon</div>
-        )}
+        {currentView === 'networth' && <NetWorthTracker /> }
+        {currentView === 'transactions' && <TransactionTracker /> }
         {currentView === 'analytics' && (
           <div className="text-center text-gray-500 py-12">Analytics - Coming Soon</div>
         )} 

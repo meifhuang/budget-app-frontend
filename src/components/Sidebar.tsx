@@ -1,7 +1,7 @@
-import { Menu, TrendingUp, DollarSign, CreditCard, BarChart3, LogOut } from 'lucide-react';
+import {  TrendingUp, DollarSign, CreditCard, LogOut } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-type ViewType = 'dashboard' | 'income' | 'networth' | 'transactions' | 'analytics';
+type ViewType = 'income' | 'networth' | 'transactions';
 
 interface SidebarProps {
   currentView: ViewType;
@@ -42,11 +42,9 @@ export default function Sidebar({ currentView, setCurrentView, userName, onLogou
       </div>
 
       <nav className="flex flex-col gap-2">
-        <NavButton icon={Menu} label="Dashboard" view="dashboard" currentView={currentView} setCurrentView={setCurrentView} />
         <NavButton icon={DollarSign} label="Income" view="income" currentView={currentView} setCurrentView={setCurrentView} />
         <NavButton icon={TrendingUp} label="Net Worth" view="networth" currentView={currentView} setCurrentView={setCurrentView} />
         <NavButton icon={CreditCard} label="Transactions" view="transactions" currentView={currentView} setCurrentView={setCurrentView} />
-        <NavButton icon={BarChart3} label="Analytics" view="analytics" currentView={currentView} setCurrentView={setCurrentView} />
       </nav>
 
       <div className="mt-auto border-t border-gray-200 pt-4">
