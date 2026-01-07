@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Primary app CSS — removed Tailwind directives to switch to Chakra UI
+   Import project globals only (Chakra will handle component styling) */
+@import "./src/components/styles/globals.css";
