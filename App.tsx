@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Login from './src/components/Login';
 import Sidebar from './src/components/Sidebar';
 import IncomeTracker from './src/components/IncomeTracker';
@@ -31,7 +31,7 @@ export interface Transaction {
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [currentView, setCurrentView] = useState<'income' | 'networth' | 'transactions' | 'analytics'>('transactions');
+  const [currentView, setCurrentView] = useState<'income' | 'networth' | 'transactions'>('transactions');
 
   const handleLogin = (loggedInUser: User) => {
     setUser(loggedInUser);
@@ -66,9 +66,6 @@ export default function App() {
         {currentView === 'income' && <IncomeTracker />}
         {currentView === 'networth' && <NetWorthTracker /> }
         {currentView === 'transactions' && <TransactionTracker /> }
-        {currentView === 'analytics' && (
-          <div className="text-center text-gray-500 py-12">Analytics - Coming Soon</div>
-        )} 
       </main>
     </div>
   );

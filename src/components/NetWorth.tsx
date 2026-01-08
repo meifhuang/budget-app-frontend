@@ -21,7 +21,7 @@ export interface NetWorth {
 
 export default function NetWorthTracker() {
   const [showForm, setShowForm] = useState(false);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [date, setDate] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [accounts, setAccounts] = useState<AccountInput[]>([{ id: '1', name: '', amount: '' }]);
@@ -64,7 +64,8 @@ export default function NetWorthTracker() {
     });
     setNetWorthData(await refreshRes.json());
   } catch (err) {
-    setError(err instanceof Error ? err.message : 'Error deleting snapshot');
+    // setError(err instanceof Error ? err.message : 'Error deleting snapshot');
+    console.error(err)
   }
 };
 
@@ -72,7 +73,8 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   
   if (!date || !accounts.every(acc => acc.name && acc.amount)) {
-    setError('Please fill in all fields');
+    // setError('Please fill in all fields');
+    //  console.error(err)
     return;
   }
 
@@ -111,7 +113,8 @@ const handleSubmit = async (e: React.FormEvent) => {
     setShowForm(false);
     setNewAccountNames({});
   } catch (err) {
-    setError(err instanceof Error ? err.message : 'Error saving');
+    // setError(err instanceof Error ? err.message : 'Error saving');
+    console.error(err)
   }
 };
 

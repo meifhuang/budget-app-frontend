@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Income } from '../../App';
-import { Plus, Calendar, Filter, Loader, Trash2} from 'lucide-react';
+import { Plus, Calendar, Filter, Trash2} from 'lucide-react';
 
 export default function IncomeTracker() {
   const [incomes, setIncomes] = useState<Income[]>([]);
@@ -195,7 +195,7 @@ const handleDelete = async (id: string) => {
           <label className="text-sm font-medium text-gray-700">Filter by Year:</label>
           <select
             value={yearFilter}
-            onChange={(e) => setYearFilter(e.target.value)}
+            onChange={(e) => setYearFilter(Number(e.target.value))}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Years</option>

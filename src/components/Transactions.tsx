@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, ChevronLeft, ChevronRight, TrendingUp, DollarSign, ShoppingCart, Trash2, Edit2 } from 'lucide-react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CreatableSelect from './CreateableSelect';
 
 
@@ -58,7 +58,7 @@ export default function TransactionTracker() {
       const res = await fetch(`${apiBase}/companies?query=${formData.company}`, {
         credentials: 'include',
       });
-      const data = await res.json();
+      const data = await res.json() as Array<{ name: string; id: string }>;
       setExistingCompanies(data.map(c => c.name));
     } catch (err) {
       console.error(err);
@@ -71,7 +71,7 @@ export default function TransactionTracker() {
       const res = await fetch(`${apiBase}/categories?query=${formData.category}`, {
         credentials: 'include',
       });
-      const data = await res.json();
+      const data = await res.json() as Array<{ name: string; id: string }>;
       setExistingCategories(data.map(c => c.name));
     } catch (err) {
       console.error(err);
@@ -90,13 +90,13 @@ useEffect(() => {
   // Fetch companies
   fetch(`${apiBase}/companies`, { credentials: 'include' })
     .then(r => r.json())
-    .then(data => setExistingCompanies(data.map(c => c.name)))
+    .then((data: Array<{ name: string; id: string }>) => setExistingCompanies(data.map(c => c.name)))
     .catch(err => console.error('Failed to fetch companies:', err));
 
   // Fetch categories
   fetch(`${apiBase}/categories`, { credentials: 'include' })
     .then(r => r.json())
-    .then(data => setExistingCategories(data.map(c => c.name)))
+    .then((data: Array<{ name: string; id: string }>) => setExistingCategories(data.map(c => c.name)))
     .catch(err => console.error('Failed to fetch categories:', err));
 }, [apiBase]);
 
@@ -516,7 +516,7 @@ const handleEdit = (transaction: Transaction) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
+              <Tooltip formatter={(value) => `$${value?.toLocaleString()}`} />
               <Legend />
               {categories.map((category, index) => (
                 <Bar 
@@ -592,7 +592,7 @@ const handleEdit = (transaction: Transaction) => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {currentTransactions.map((transaction,index) => (
+              {currentTransactions.map((transaction) => (
                 <tr key={transaction.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(transaction.date).toLocaleDateString('en-US', { 
